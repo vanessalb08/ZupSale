@@ -12,6 +12,5 @@ public class CadastroDTO {
     private String cor, marca;
     private Integer tamanho, quantidadeDeEstoque;
     private Double valorDaCompra;
-    private String nomeEstoque;
 
 }

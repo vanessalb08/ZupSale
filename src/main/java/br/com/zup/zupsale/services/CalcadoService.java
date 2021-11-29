@@ -14,9 +14,9 @@ public class CalcadoService {
     @Autowired
     private CalcadoRepository calcadoRepository;
 
-    public Calcado cadastrarCalcado(Calcado calcado) {
+    public void cadastrarCalcado(Calcado calcado) {
         calcado.setDataDeCadastro(LocalDateTime.now());
-        return calcadoRepository.save(calcado);
+        calcadoRepository.save(calcado);
 
     }
 

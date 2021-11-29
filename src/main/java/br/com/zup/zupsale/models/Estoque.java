@@ -12,8 +12,8 @@ import java.util.List;
 @Table(name = "estoques")
 public class Estoque {
     @Id
-    @Column(columnDefinition = "VARCHAR(50)")
-    private String nomeEstoque;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @OneToMany
     private List<Calcado> calcados = new ArrayList<>();
     @Column(nullable = false)
