@@ -26,8 +26,8 @@ public class Calcado {
     @Column(nullable = false)
     private Double valorDaCompra;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime dataDeCadastro = LocalDateTime.now();
-    @ManyToOne
+    private LocalDateTime dataDeCadastro;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estoque estoque;
 
 }
