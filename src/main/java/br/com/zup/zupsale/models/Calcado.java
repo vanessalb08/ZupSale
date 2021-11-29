@@ -2,13 +2,11 @@ package br.com.zup.zupsale.models;
 
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter @NoArgsConstructor
+@Data
 public class Calcado {
     private Genero genero;
     private Categoria categoria;
