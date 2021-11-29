@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CalcadoService {
@@ -16,6 +17,12 @@ public class CalcadoService {
     public Calcado cadastrarCalcado(Calcado calcado) {
         calcado.setDataDeCadastro(LocalDateTime.now());
         return calcadoRepository.save(calcado);
+
+    }
+
+    public List<Calcado> listarCalcados(){
+        Iterable<Calcado> listaCalcados = calcadoRepository.findAll();
+        return (List<Calcado>) listaCalcados;
 
     }
 
