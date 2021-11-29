@@ -1,5 +1,6 @@
 package br.com.zup.zupsale.models;
 
+import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
