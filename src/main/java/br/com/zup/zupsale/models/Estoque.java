@@ -13,7 +13,7 @@ import java.util.List;
 public class Estoque {
     @Id
     @Column(columnDefinition = "VARCHAR(50)")
-    private String nome;
+    private String nomeEstoque;
     @OneToMany
     private List<Calcado> calcados = new ArrayList<>();
     @Column(nullable = false)
