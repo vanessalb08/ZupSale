@@ -20,10 +20,16 @@ public class CalcadoService {
 
     }
 
-    public List<Calcado> listarCalcados(){
+    public List<Calcado> listarCalcados() {
         Iterable<Calcado> listaCalcados = calcadoRepository.findAll();
         return (List<Calcado>) listaCalcados;
+    }
 
+    public List<Calcado> buscarCalcados(Integer tamanho) {
+        if (tamanho != null) {
+            return calcadoRepository.findAllByTamanho(tamanho);
+        }
+        return listarCalcados();
     }
 
 }

@@ -31,15 +31,18 @@ public class CalcadoController {
     }
 
     @GetMapping
-    public List<ResumoCadastroDTO> listarCalcados (){
+    public List<ResumoCadastroDTO> buscarCalcados(@RequestParam(required = false) Integer tamanho) {
         List<ResumoCadastroDTO> listaResumo = new ArrayList<>();
 
-        for (Calcado calcado: calcadoService.listarCalcados()) {
-            ResumoCadastroDTO resumoDTO =modelMapper.map(calcado, ResumoCadastroDTO.class);
-            listaResumo.add(resumoDTO);
+        for (Calcado calcado : calcadoService.buscarCalcados(tamanho)) {
+            ResumoCadastroDTO resumo = modelMapper.map(calcado, ResumoCadastroDTO.class);
+            listaResumo.add(resumo);
         }
-
         return listaResumo;
+
     }
 
+
 }
+
+
