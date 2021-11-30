@@ -18,4 +18,5 @@ public interface CalcadoRepository extends CrudRepository<Calcado, Integer> {
 
     @Query(value = "SELECT * FROM calcados WHERE valor_da_compra BETWEEN :valor*0.85 AND :valor*1.15",nativeQuery = true)
     List<Calcado> findAllByValorDaCompraBetween(double valor);
+
 }

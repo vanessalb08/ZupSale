@@ -20,14 +20,14 @@ public class Calcado {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
-    private String cor, marca;
+    private String cor, marca, modelo;
     @Column(nullable = false)
     private Integer tamanho, quantidadeDeEstoque;
     @Column(nullable = false)
     private Double valorDaCompra;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDeCadastro;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Estoque estoque;
 
 }
