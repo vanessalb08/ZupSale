@@ -1,6 +1,7 @@
 package br.com.zup.zupsale.services;
 
 import br.com.zup.zupsale.enuns.Categoria;
+import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.repositories.CalcadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,14 @@ public class CalcadoService {
             return calcadoRepository.findAllByValorDaCompraBetween(valor);
         }
         return listarCalcados();
+    }
+
+    public void deletarCalcado(int id){
+        if (calcadoRepository.existsById(id)) {
+            calcadoRepository.deleteById(id);
+        } else {
+            throw new CalcadoNaoLocalizadoException("Calçado não localizado!");
+        }
     }
 
 }

@@ -44,6 +44,12 @@ public class CalcadoController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarCadastro(@PathVariable int id){
+        calcadoService.deletarCalcado(id);
+    }
+
 
 }
 
