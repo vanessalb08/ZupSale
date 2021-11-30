@@ -25,9 +25,12 @@ public class CalcadoService {
         return (List<Calcado>) listaCalcados;
     }
 
-    public List<Calcado> buscarCalcados(Integer tamanho) {
+    public List<Calcado> buscarCalcados(Integer tamanho, String marca) {
         if (tamanho != null) {
             return calcadoRepository.findAllByTamanho(tamanho);
+        }
+        if (marca != null){
+            return calcadoRepository.findAllByMarca(marca);
         }
         return listarCalcados();
     }
