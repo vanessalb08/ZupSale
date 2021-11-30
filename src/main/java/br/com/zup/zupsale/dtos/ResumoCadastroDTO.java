@@ -10,5 +10,6 @@ public class ResumoCadastroDTO {
     private Categoria categoria;
     private String cor, marca;
     private Integer tamanho, quantidadeDeEstoque;
+    private Double valorDaCompra;
 
 }

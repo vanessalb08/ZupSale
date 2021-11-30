@@ -2,6 +2,7 @@ package br.com.zup.zupsale.controllers;
 
 import br.com.zup.zupsale.dtos.CadastroDTO;
 import br.com.zup.zupsale.dtos.ResumoCadastroDTO;
+import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.services.CalcadoService;
 import org.modelmapper.ModelMapper;
@@ -31,15 +32,19 @@ public class CalcadoController {
     }
 
     @GetMapping
-    public List<ResumoCadastroDTO> listarCalcados (){
+    public List<ResumoCadastroDTO> buscarCalcados(@RequestParam(required = false) Integer tamanho, String marca,
+                                                  Categoria categoria, Double valor) {
         List<ResumoCadastroDTO> listaResumo = new ArrayList<>();
 
-        for (Calcado calcado: calcadoService.listarCalcados()) {
-            ResumoCadastroDTO resumoDTO =modelMapper.map(calcado, ResumoCadastroDTO.class);
-            listaResumo.add(resumoDTO);
+        for (Calcado calcado : calcadoService.buscarCalcados(tamanho, marca, categoria, valor)) {
+            ResumoCadastroDTO resumo = modelMapper.map(calcado, ResumoCadastroDTO.class);
+            listaResumo.add(resumo);
         }
-
         return listaResumo;
+
     }
 
+
 }
+
+

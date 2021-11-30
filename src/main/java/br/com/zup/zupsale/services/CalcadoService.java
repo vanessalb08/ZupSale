@@ -1,5 +1,6 @@
 package br.com.zup.zupsale.services;
 
+import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.repositories.CalcadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,25 @@ public class CalcadoService {
 
     }
 
-    public List<Calcado> listarCalcados(){
+    public List<Calcado> listarCalcados() {
         Iterable<Calcado> listaCalcados = calcadoRepository.findAll();
         return (List<Calcado>) listaCalcados;
+    }
 
+    public List<Calcado> buscarCalcados(Integer tamanho, String marca, Categoria categoria, Double valor) {
+        if (tamanho != null) {
+            return calcadoRepository.findAllByTamanho(tamanho);
+        }
+        if (marca != null){
+            return calcadoRepository.findAllByMarca(marca);
+        }
+        if (categoria != null){
+            return calcadoRepository.findAllByCategoria(categoria);
+        }
+        if (valor != null){
+            return calcadoRepository.findAllByValorDaCompraBetween(valor);
+        }
+        return listarCalcados();
     }
 
 }
