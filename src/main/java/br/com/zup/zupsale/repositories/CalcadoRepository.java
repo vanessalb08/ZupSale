@@ -9,4 +9,6 @@ import java.util.List;
 public interface CalcadoRepository extends CrudRepository<Calcado, Integer> {
 
     List<Calcado> findAllByTamanho(Integer tamanho);
+
+    List<Calcado> findAllByMarca(String marca);
 }
