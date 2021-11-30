@@ -13,7 +13,7 @@ public class CadastroDTO {
     private Genero genero;
     private Categoria categoria;
     @Size(min = 3, message = "{validacao.size}")
-    private String cor, marca;
+    private String cor, marca, modelo;
     @NotNull(message = "{validacao.not-null}")
     private Integer tamanho, quantidadeDeEstoque;
     @NotNull(message = "{validacao.not-null}")
