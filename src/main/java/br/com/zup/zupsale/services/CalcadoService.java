@@ -51,4 +51,12 @@ public class CalcadoService {
         }
     }
 
+    public int quantidadeTotalCalcado(){
+        int  total = 0;
+        for (Calcado calcadoReferencia : listarCalcados()){
+            total +=calcadoReferencia.getQuantidadeDeEstoque();
+        }
+        return total;
+    }
+
 }
