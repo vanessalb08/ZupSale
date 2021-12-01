@@ -2,6 +2,7 @@ package br.com.zup.zupsale.controllers;
 
 import br.com.zup.zupsale.dtos.CadastroDTO;
 import br.com.zup.zupsale.dtos.ResumoCadastroDTO;
+import br.com.zup.zupsale.dtos.ResumoEstoqueDTO;
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.services.CalcadoService;
@@ -42,6 +43,13 @@ public class CalcadoController {
         }
         return listaResumo;
 
+    }
+
+    @GetMapping("/estoque")
+    public ResumoEstoqueDTO totalDoEstoque (){
+        ResumoEstoqueDTO resumoEstoqueDTO = new ResumoEstoqueDTO();
+        resumoEstoqueDTO.setQuantidadeTotal(calcadoService.quantidadeTotalCalcado());
+        return resumoEstoqueDTO;
     }
 
     @DeleteMapping("/{id}")
