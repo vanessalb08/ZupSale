@@ -3,6 +3,7 @@ package br.com.zup.zupsale.controllers;
 import br.com.zup.zupsale.dtos.CadastroDTO;
 import br.com.zup.zupsale.dtos.ResumoCadastroDTO;
 import br.com.zup.zupsale.dtos.ResumoEstoqueDTO;
+import br.com.zup.zupsale.dtos.VendaDTO;
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.models.Calcado;
@@ -61,6 +62,11 @@ public class CalcadoController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarCadastro(@PathVariable int id){
         calcadoService.deletarCalcado(id);
+    }
+
+    @PutMapping("/venda/{id}")
+    public void efetuarVenda(@PathVariable Integer id, @RequestBody VendaDTO vendaDTO){
+        calcadoService.efetuarVenda(id, vendaDTO.getQuantidade());
     }
 
 

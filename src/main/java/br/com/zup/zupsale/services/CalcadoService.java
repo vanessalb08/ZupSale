@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CalcadoService {
@@ -64,4 +65,23 @@ public class CalcadoService {
         return total;
     }
 
+    public void efetuarVenda(Integer id, Integer quantidadeDeVenda) {
+        if (quantidadeTotalCalcado() >= 0) {
+            if (calcadoRepository.existsById(id)) {
+                Optional<Calcado> calcado = calcadoRepository.findById(id);
+                Integer qtdTotal = calcado.get().getQuantidadeDeEstoque();
+                if (quantidadeDeVenda <= qtdTotal) {
+                    Integer qtdAtualizada = qtdTotal - quantidadeDeVenda;
+                    calcado.get().setQuantidadeDeEstoque(qtdAtualizada);
+                    calcadoRepository.save(calcado.get());
+                }
+                else {
+                    throw new RuntimeException("A quantidade da venda deve ser menor do que o estoque");
+                }
+
+            } else {
+                throw new RuntimeException("Id não encontrado");
+            }
+        }
+    }
 }
