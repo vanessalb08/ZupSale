@@ -4,6 +4,7 @@ import br.com.zup.zupsale.dtos.CadastroDTO;
 import br.com.zup.zupsale.dtos.ResumoCadastroDTO;
 import br.com.zup.zupsale.dtos.ResumoEstoqueDTO;
 import br.com.zup.zupsale.enuns.Categoria;
+import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.services.CalcadoService;
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.GeneratedValue;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +35,14 @@ public class CalcadoController {
     }
 
     @GetMapping
-    public List<ResumoCadastroDTO> buscarCalcados(@RequestParam(required = false) Integer tamanho, String marca,
-                                                  Categoria categoria, Double valor) {
+    public List<ResumoCadastroDTO> buscarCalcados(@RequestParam(required = false) Integer tamanho,
+                                                  @RequestParam(required = false) String marca,
+                                                  @RequestParam(required = false) Categoria categoria,
+                                                  @RequestParam(required = false) Double valor,
+                                                  @RequestParam(required = false) Genero genero) {
         List<ResumoCadastroDTO> listaResumo = new ArrayList<>();
 
-        for (Calcado calcado : calcadoService.buscarCalcados(tamanho, marca, categoria, valor)) {
+        for (Calcado calcado : calcadoService.buscarCalcados(tamanho, marca, categoria, genero, valor)) {
             ResumoCadastroDTO resumo = modelMapper.map(calcado, ResumoCadastroDTO.class);
             listaResumo.add(resumo);
         }
