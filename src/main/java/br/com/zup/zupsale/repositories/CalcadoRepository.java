@@ -21,6 +21,6 @@ public interface CalcadoRepository extends CrudRepository<Calcado, Integer> {
     List<Calcado> findAllByValorDaCompraBetween(double valor);
 
     @Query(value = "SELECT * FROM calcados c WHERE c.categoria = ?1 AND c.genero = ?2", nativeQuery = true)
-    List<Calcado> findAllByCategoriaEGenero(Categoria categoria, Genero genero);
+    List<Calcado> findAllByCategoriaAndGenero(String categoria, String genero);
 
 }
