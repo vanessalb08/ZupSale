@@ -1,6 +1,7 @@
 package br.com.zup.zupsale.services;
 
 import br.com.zup.zupsale.enuns.Categoria;
+import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.repositories.CalcadoRepository;
@@ -27,17 +28,21 @@ public class CalcadoService {
         return (List<Calcado>) listaCalcados;
     }
 
-    public List<Calcado> buscarCalcados(Integer tamanho, String marca, Categoria categoria, Double valor) {
-        if (tamanho != null) {
+    public List<Calcado> buscarCalcados(Integer tamanho, String marca, Categoria categoria, Genero genero,
+                                        Double valor) {
+        if (categoria != null & genero != null){
+            return calcadoRepository.findAllByCategoriaEGenero(categoria, genero);
+        }
+        else if (tamanho != null) {
             return calcadoRepository.findAllByTamanho(tamanho);
         }
-        if (marca != null){
+        else if (marca != null){
             return calcadoRepository.findAllByMarca(marca);
         }
-        if (categoria != null){
+        else if (categoria != null){
             return calcadoRepository.findAllByCategoria(categoria);
         }
-        if (valor != null){
+        else if (valor != null){
             return calcadoRepository.findAllByValorDaCompraBetween(valor);
         }
         return listarCalcados();
@@ -49,6 +54,14 @@ public class CalcadoService {
         } else {
             throw new CalcadoNaoLocalizadoException("Calçado não localizado!");
         }
+    }
+
+    public int quantidadeTotalCalcado(){
+        int  total = 0;
+        for (Calcado calcadoReferencia : listarCalcados()){
+            total +=calcadoReferencia.getQuantidadeDeEstoque();
+        }
+        return total;
     }
 
 }
