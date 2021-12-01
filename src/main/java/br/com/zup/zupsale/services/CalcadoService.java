@@ -32,7 +32,7 @@ public class CalcadoService {
     public List<Calcado> buscarCalcados(Integer tamanho, String marca, Categoria categoria, Genero genero,
                                         Double valor) {
         if (categoria != null & genero != null){
-            return calcadoRepository.findAllByCategoriaEGenero(categoria, genero);
+            return calcadoRepository.findAllByCategoriaAndGenero(categoria.name(), genero.name());
         }
         else if (tamanho != null) {
             return calcadoRepository.findAllByTamanho(tamanho);
