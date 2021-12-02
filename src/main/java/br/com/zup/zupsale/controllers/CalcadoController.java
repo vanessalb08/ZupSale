@@ -26,7 +26,7 @@ public class CalcadoController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastrarCalcado(@RequestBody @Valid CadastroDTO cadastroDTO) {
         Calcado calcado = modelMapper.map(cadastroDTO, Calcado.class);
