@@ -1,6 +1,8 @@
 package br.com.zup.zupsale.config;
 
 import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
+import br.com.zup.zupsale.exceptions.EstoqueInsuficienteException;
+import br.com.zup.zupsale.exceptions.IdNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,5 +35,19 @@ public class ControllerAdvisor {
     public MensagemDeErro ExcecaoDeCalcadoNaoLocalizado(CalcadoNaoLocalizadoException exception) {
         return new MensagemDeErro(exception.getMessage());
     }
+
+    @ExceptionHandler(IdNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public MensagemDeErro ExcecaoDeIdNaoLocalizado(IdNaoEncontradoException exception) {
+        return new MensagemDeErro(exception.getMessage());
+    }
+
+    @ExceptionHandler(EstoqueInsuficienteException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public MensagemDeErro ExcecaoDeEstoqueInsuficiente(EstoqueInsuficienteException exception) {
+        return new MensagemDeErro(exception.getMessage());
+    }
+
+
 
 }
