@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,18 @@ public class CalcadoService {
         calcadoRepository.save(calcado);
 
     }
+
+    public  void verificarModelo(Calcado calcado){
+        if (calcadoRepository.existsByModeloIgnoreCase(calcado.getModelo())){
+            for (Calcado calcadoReferencia : calcadoRepository.findAllByModeloIgnoreCase(calcado.getModelo())) {
+                if (!Objects.equals(calcado.getCategoria(), calcadoReferencia.getCategoria()) ||
+                        !Objects.equals(calcado.getMarca(), calcadoReferencia.getMarca())) {
+                    throw new RuntimeException("Tipo ou marca divergente");
+                }
+            }
+        }
+    }
+
 
     public List<Calcado> listarCalcados() {
         Iterable<Calcado> listaCalcados = calcadoRepository.findAll();

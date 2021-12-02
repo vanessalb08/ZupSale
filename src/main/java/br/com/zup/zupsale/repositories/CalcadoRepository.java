@@ -23,4 +23,7 @@ public interface CalcadoRepository extends CrudRepository<Calcado, Integer> {
     @Query(value = "SELECT * FROM calcados c WHERE c.categoria = ?1 AND c.genero = ?2", nativeQuery = true)
     List<Calcado> findAllByCategoriaAndGenero(String categoria, String genero);
 
+    boolean existsByModeloIgnoreCase(String modelo);
+
+    Calcado[] findAllByModeloIgnoreCase(String modelo);
 }
