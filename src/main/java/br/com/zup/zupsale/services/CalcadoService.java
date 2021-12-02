@@ -38,6 +38,25 @@ public class CalcadoService {
         }
     }
 
+    public boolean verificarEstoque(Calcado calcadoASerCadastrado){
+        boolean estoqueAtualizado = false;
+        for (Calcado calcado : calcadoRepository.findAllByModeloIgnoreCase(
+                calcadoASerCadastrado.getModelo())) {
+            if (calcado.getCor().equalsIgnoreCase(calcadoASerCadastrado.getCor()) &
+                    calcado.getGenero().equals(calcadoASerCadastrado.getGenero()) &
+                    calcado.getTamanho().equals(calcadoASerCadastrado.getTamanho())){
+                Integer qtdEstoque = calcado.getQuantidadeDeEstoque();
+                Integer qtdCadastro = calcadoASerCadastrado.getQuantidadeDeEstoque();
+                Integer qtdAtualizada = qtdEstoque + qtdCadastro;
+                calcado.setQuantidadeDeEstoque(qtdAtualizada);
+                calcadoRepository.save(calcado);
+                estoqueAtualizado = true;
+            }
+        }
+        return estoqueAtualizado;
+    }
+
+
 
     public List<Calcado> listarCalcados() {
         Iterable<Calcado> listaCalcados = calcadoRepository.findAll();
