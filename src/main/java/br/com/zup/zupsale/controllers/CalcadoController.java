@@ -74,17 +74,17 @@ public class CalcadoController {
         double valorFormatado = Math.round(valor*100.0)/100.0;
         vendaSaidaDTO = modelMapper.map(vendaEntradaDTO, VendaSaidaDTO.class);
         vendaSaidaDTO.setValorTotalDaVenda(valorFormatado);
+        calcadoService.atualizarPorcentagemDeVendas(vendaEntradaDTO.getId());
         return vendaSaidaDTO;
     }
 
-    @GetMapping("/relatorio{id}")
-    public List<RelatorioDeVendasDTO> exibirRelatorioDeVendas(@RequestParam Integer id){
-        calcadoService.atualizarPorcentagemDeVendas(id);
+    @GetMapping("/relatorio")
+    public List<RelatorioDeVendasDTO> exibirRelatorioDeVendas(){
         List<RelatorioDeVendasDTO> relatorioDeVendasDTOS = new ArrayList<>();
         for (Calcado calcado : calcadoService.listarCalcados()) {
             RelatorioDeVendasDTO relatorioDeVendas = modelMapper.map(
                     calcado, RelatorioDeVendasDTO.class);
-            if (calcadoService.atualizarPorcentagemDeVendas(id) <= 50){
+            if (calcadoService.atualizarPorcentagemDeVendas(calcado.getId()) <= 50){
                 relatorioDeVendas.setStatusEstoque(StatusEstoque.ADEQUADO.getMensagem());
             }
             else {
