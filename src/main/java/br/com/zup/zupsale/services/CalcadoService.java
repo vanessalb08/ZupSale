@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -20,11 +21,45 @@ public class CalcadoService {
     @Autowired
     private CalcadoRepository calcadoRepository;
 
-    public void cadastrarCalcado(Calcado calcado) {
-        calcado.setDataDeCadastro(LocalDateTime.now());
-        calcadoRepository.save(calcado);
-
+    public void cadastrarCalcado(Calcado calcadoASerCadastrado) {
+        verificarModelo(calcadoASerCadastrado);
+        if (!verificarEstoque(calcadoASerCadastrado)){
+            calcadoASerCadastrado.setDataDeCadastro(LocalDateTime.now());
+            calcadoRepository.save(calcadoASerCadastrado);
+        }
     }
+
+
+    public  void verificarModelo(Calcado calcado){
+        if (calcadoRepository.existsByModeloIgnoreCase(calcado.getModelo())){
+            for (Calcado calcadoReferencia : calcadoRepository.findAllByModeloIgnoreCase(calcado.getModelo())) {
+                if (!Objects.equals(calcado.getCategoria(), calcadoReferencia.getCategoria()) ||
+                        !Objects.equals(calcado.getMarca(), calcadoReferencia.getMarca())) {
+                    throw new RuntimeException("Tipo ou marca divergente");
+                }
+            }
+        }
+    }
+
+    public boolean verificarEstoque(Calcado calcadoASerCadastrado){
+        boolean estoqueAtualizado = false;
+        for (Calcado calcado : calcadoRepository.findAllByModeloIgnoreCase(
+                calcadoASerCadastrado.getModelo())) {
+            if (calcado.getCor().equalsIgnoreCase(calcadoASerCadastrado.getCor()) &
+                    calcado.getGenero().equals(calcadoASerCadastrado.getGenero()) &
+                    calcado.getTamanho().equals(calcadoASerCadastrado.getTamanho())){
+                Integer qtdEstoque = calcado.getQuantidadeDeEstoque();
+                Integer qtdCadastro = calcadoASerCadastrado.getQuantidadeDeEstoque();
+                Integer qtdAtualizada = qtdEstoque + qtdCadastro;
+                calcado.setQuantidadeDeEstoque(qtdAtualizada);
+                calcadoRepository.save(calcado);
+                estoqueAtualizado = true;
+            }
+        }
+        return estoqueAtualizado;
+    }
+
+
 
     public List<Calcado> listarCalcados() {
         Iterable<Calcado> listaCalcados = calcadoRepository.findAll();
