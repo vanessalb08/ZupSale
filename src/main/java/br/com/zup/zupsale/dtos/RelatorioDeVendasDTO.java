@@ -7,6 +7,6 @@ import lombok.Data;
 public class RelatorioDeVendasDTO {
     private Integer id, qtdDeEntrada, qtdDeSaida;
     private  Double porcentagemDeVendas;
-    private StatusEstoque statusEstoque;
+    private String statusEstoque;
 
 }

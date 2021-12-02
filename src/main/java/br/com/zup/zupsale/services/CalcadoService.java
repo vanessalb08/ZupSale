@@ -145,13 +145,15 @@ public class CalcadoService {
         calcadoRepository.save(calcado);
     }
 
-    public void atualizarPorcentagemDeVendas(Integer id){
+    public Double atualizarPorcentagemDeVendas(Integer id){
         Calcado calcado = buscarCalcadoPorId(id);
         Double qtdDeEntrada = (double) calcado.getQtdDeEntrada();
         Double qtdDeSaida = (double) calcado.getQtdDeSaida();
-        Double porcentagemDeVendas = (qtdDeSaida/qtdDeEntrada)*100;
-        calcado.setPorcentagemDeVendas(porcentagemDeVendas);
+        double porcentagemDeVendas = (qtdDeSaida/qtdDeEntrada)*100;
+        double valorFormatado = Math.round(porcentagemDeVendas*100.0)/100.0;
+        calcado.setPorcentagemDeVendas(valorFormatado);
         calcadoRepository.save(calcado);
+        return valorFormatado;
     }
 
 }
