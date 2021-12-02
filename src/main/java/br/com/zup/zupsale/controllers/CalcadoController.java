@@ -30,7 +30,7 @@ public class CalcadoController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Realizar novo cadastro de calçado")
     public void cadastrarCalcado(@RequestBody @Valid CadastroDTO cadastroDTO) {
