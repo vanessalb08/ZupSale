@@ -3,6 +3,7 @@ package br.com.zup.zupsale.services;
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
+import br.com.zup.zupsale.exceptions.IdNaoEncontradoException;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.repositories.CalcadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class CalcadoService {
                 }
 
             } else {
-                throw new RuntimeException("Id não encontrado");
+                throw new IdNaoEncontradoException("Id não encontrado");
             }
         }
     }
