@@ -1,9 +1,7 @@
 package br.com.zup.zupsale.controllers;
 
-import br.com.zup.zupsale.dtos.CadastroDTO;
-import br.com.zup.zupsale.dtos.ResumoCadastroDTO;
-import br.com.zup.zupsale.dtos.ResumoEstoqueDTO;
-import br.com.zup.zupsale.dtos.VendaDTO;
+import br.com.zup.zupsale.dtos.*;
+import br.com.zup.zupsale.dtos.VendaEntradaDTO;
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.models.Calcado;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,9 +61,19 @@ public class CalcadoController {
         calcadoService.deletarCalcado(id);
     }
 
-    @PutMapping("/venda/{id}")
-    public void efetuarVenda(@PathVariable Integer id, @RequestBody VendaDTO vendaDTO){
-        calcadoService.efetuarVenda(id, vendaDTO.getQuantidade());
+    @PutMapping("/venda")
+    public VendaSaidaDTO efetuarVenda(@RequestBody VendaEntradaDTO vendaEntradaDTO){
+        VendaSaidaDTO vendaSaidaDTO = new VendaSaidaDTO();
+        calcadoService.efetuarVenda(vendaEntradaDTO.getId(), vendaEntradaDTO.getQuantidade());
+        double valor = calcadoService.calcularValorVenda(
+                vendaEntradaDTO.getId(),
+                vendaEntradaDTO.getPorcentagemDeLucro(),
+                vendaEntradaDTO.getQuantidade()
+        );
+        double valorFormatado = Math.round(valor*100.0)/100.0;
+        vendaSaidaDTO = modelMapper.map(vendaEntradaDTO, VendaSaidaDTO.class);
+        vendaSaidaDTO.setValorTotalDaVenda(valorFormatado);
+        return vendaSaidaDTO;
     }
 
 
