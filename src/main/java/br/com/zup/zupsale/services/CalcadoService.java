@@ -26,6 +26,8 @@ public class CalcadoService {
         if (!verificarEstoque(calcadoASerCadastrado)){
             calcadoASerCadastrado.setDataDeCadastro(LocalDateTime.now());
             calcadoRepository.save(calcadoASerCadastrado);
+            atualizarQtdDeEntrada(calcadoASerCadastrado.getId(),
+                    calcadoASerCadastrado.getQuantidadeDeEstoque());
         }
     }
 
@@ -53,6 +55,7 @@ public class CalcadoService {
                 Integer qtdAtualizada = qtdEstoque + qtdCadastro;
                 calcado.setQuantidadeDeEstoque(qtdAtualizada);
                 calcadoRepository.save(calcado);
+                atualizarQtdDeEntrada(calcado.getId(), qtdCadastro);
                 estoqueAtualizado = true;
             }
         }
@@ -126,4 +129,12 @@ public class CalcadoService {
             }
         }
     }
+
+    public void atualizarQtdDeEntrada(Integer id, Integer qtdDeEntrada){
+        Calcado calcado = buscarCalcadoPorId(id);
+        Integer atualizacaoDeEntranda = calcado.getQtdDeEntrada() + qtdDeEntrada;
+        calcado.setQtdDeEntrada(atualizacaoDeEntranda);
+        calcadoRepository.save(calcado);
+    }
+
 }
