@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class VendaEntradaDTO {
-    @NotNull
+    @NotNull(message = "{validacao.not-null}")
     private Integer id, quantidade;
-    @DecimalMin(value = "0.01", message = "Valor tem que ser maior que zero")
+    @DecimalMin(value = "0.01", message = "{validacao.valor-minimo}")
     private Double porcentagemDeLucro;
 
 }
