@@ -22,7 +22,7 @@ public class ControllerAdvisor {
         List<ErroDeValidacao> erros = new ArrayList<>();
 
         for (FieldError fieldError : exception.getFieldErrors()) {
-            ErroDeValidacao erroDeValidacao = new ErroDeValidacao(fieldError.getField(),
+            ErroDeValidacao erroDeValidacao = new ErroDeValidacao(
                     fieldError.getDefaultMessage());
             erros.add(erroDeValidacao);
         }
