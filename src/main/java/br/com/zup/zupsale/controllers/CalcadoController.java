@@ -4,6 +4,7 @@ import br.com.zup.zupsale.dtos.*;
 import br.com.zup.zupsale.dtos.VendaEntradaDTO;
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
+import br.com.zup.zupsale.enuns.StatusEstoque;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.services.CalcadoService;
 import org.modelmapper.ModelMapper;
@@ -83,7 +84,14 @@ public class CalcadoController {
         for (Calcado calcado : calcadoService.listarCalcados()) {
             RelatorioDeVendasDTO relatorioDeVendas = modelMapper.map(
                     calcado, RelatorioDeVendasDTO.class);
+            if (calcadoService.atualizarPorcentagemDeVendas(id) <= 50){
+                relatorioDeVendas.setStatusEstoque(StatusEstoque.ADEQUADO.getMensagem());
+            }
+            else {
+                relatorioDeVendas.setStatusEstoque(StatusEstoque.ABAIXO.getMensagem());
+            }
             relatorioDeVendasDTOS.add(relatorioDeVendas);
+
         }
         return relatorioDeVendasDTOS;
     }
