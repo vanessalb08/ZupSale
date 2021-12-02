@@ -10,4 +10,5 @@ public class VendaSaidaDTO {
     private int id;
     private int quantidade;
     private double valorTotalDaVenda;
+
 }
