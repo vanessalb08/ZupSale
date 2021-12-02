@@ -7,6 +7,8 @@ import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.enuns.StatusEstoque;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.services.CalcadoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/zupsale")
+@Api(value = "zupsale")
+@CrossOrigin(origins = "*")
 public class CalcadoController {
 
     @Autowired
@@ -28,12 +32,14 @@ public class CalcadoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Realizar novo cadastro de calçado")
     public void cadastrarCalcado(@RequestBody @Valid CadastroDTO cadastroDTO) {
         Calcado calcado = modelMapper.map(cadastroDTO, Calcado.class);
         calcadoService.cadastrarCalcado(calcado);
     }
 
     @GetMapping
+    @ApiOperation(value = "Realizar busca de calçado")
     public List<ResumoCadastroDTO> buscarCalcados(@RequestParam(required = false) Integer tamanho,
                                                   @RequestParam(required = false) String marca,
                                                   @RequestParam(required = false) Categoria categoria,
@@ -50,6 +56,7 @@ public class CalcadoController {
     }
 
     @GetMapping("/estoque")
+    @ApiOperation(value = "Listar o estoque")
     public ResumoEstoqueDTO totalDoEstoque (){
         ResumoEstoqueDTO resumoEstoqueDTO = new ResumoEstoqueDTO();
         resumoEstoqueDTO.setQuantidadeTotal(calcadoService.quantidadeTotalCalcado());
@@ -58,11 +65,13 @@ public class CalcadoController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Deletar calçado do estoque")
     public void deletarCadastro(@PathVariable int id){
         calcadoService.deletarCalcado(id);
     }
 
     @PutMapping("/venda")
+    @ApiOperation(value = "Efetuar Venda")
     public VendaSaidaDTO efetuarVenda(@RequestBody VendaEntradaDTO vendaEntradaDTO){
         VendaSaidaDTO vendaSaidaDTO = new VendaSaidaDTO();
         calcadoService.efetuarVenda(vendaEntradaDTO.getId(), vendaEntradaDTO.getQuantidade());
@@ -79,6 +88,7 @@ public class CalcadoController {
     }
 
     @GetMapping("/relatorio")
+    @ApiOperation("Gerar relatório de Venda")
     public List<RelatorioDeVendasDTO> exibirRelatorioDeVendas(){
         List<RelatorioDeVendasDTO> relatorioDeVendasDTOS = new ArrayList<>();
         for (Calcado calcado : calcadoService.listarCalcados()) {
