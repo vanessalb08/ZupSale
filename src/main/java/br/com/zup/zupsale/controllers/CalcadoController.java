@@ -76,6 +76,17 @@ public class CalcadoController {
         return vendaSaidaDTO;
     }
 
+    @GetMapping("/relatorio{id}")
+    public List<RelatorioDeVendasDTO> exibirRelatorioDeVendas(@RequestParam Integer id){
+        calcadoService.atualizarPorcentagemDeVendas(id);
+        List<RelatorioDeVendasDTO> relatorioDeVendasDTOS = new ArrayList<>();
+        for (Calcado calcado : calcadoService.listarCalcados()) {
+            RelatorioDeVendasDTO relatorioDeVendas = modelMapper.map(
+                    calcado, RelatorioDeVendasDTO.class);
+            relatorioDeVendasDTOS.add(relatorioDeVendas);
+        }
+        return relatorioDeVendasDTOS;
+    }
 
 }
 

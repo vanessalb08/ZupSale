@@ -27,6 +27,9 @@ public class Calcado {
     private Double valorDaCompra;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDeCadastro;
+    private Integer qtdDeEntrada = 0;
+    private Integer qtdDeSaida = 0;
+    private  Double porcentagemDeVendas;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Estoque estoque;
 
