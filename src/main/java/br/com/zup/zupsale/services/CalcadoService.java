@@ -49,7 +49,8 @@ public class CalcadoService {
                 calcadoASerCadastrado.getModelo())) {
             if (calcado.getCor().equalsIgnoreCase(calcadoASerCadastrado.getCor()) &
                     calcado.getGenero().equals(calcadoASerCadastrado.getGenero()) &
-                    calcado.getTamanho().equals(calcadoASerCadastrado.getTamanho())){
+                    calcado.getTamanho().equals(calcadoASerCadastrado.getTamanho()) &
+                    calcado.getValorDaCompra().equals(calcadoASerCadastrado.getValorDaCompra())){
                 Integer qtdEstoque = calcado.getQuantidadeDeEstoque();
                 Integer qtdCadastro = calcadoASerCadastrado.getQuantidadeDeEstoque();
                 Integer qtdAtualizada = qtdEstoque + qtdCadastro;
