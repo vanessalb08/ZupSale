@@ -21,11 +21,14 @@ public class CalcadoService {
     @Autowired
     private CalcadoRepository calcadoRepository;
 
-    public void cadastrarCalcado(Calcado calcado) {
-        calcado.setDataDeCadastro(LocalDateTime.now());
-        calcadoRepository.save(calcado);
-
+    public void cadastrarCalcado(Calcado calcadoASerCadastrado) {
+        verificarModelo(calcadoASerCadastrado);
+        if (!verificarEstoque(calcadoASerCadastrado)){
+            calcadoASerCadastrado.setDataDeCadastro(LocalDateTime.now());
+            calcadoRepository.save(calcadoASerCadastrado);
+        }
     }
+
 
     public  void verificarModelo(Calcado calcado){
         if (calcadoRepository.existsByModeloIgnoreCase(calcado.getModelo())){
