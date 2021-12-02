@@ -72,22 +72,24 @@ public class CalcadoService {
 
     }
 
+    public double calcularValorVenda(int id, double porcentagemLucro, int quantidade) {
+        Calcado calcado = buscarCalcadoPorId(id);
+        double valorDaCompra = calcado.getValorDaCompra();
+        double valorDaVenda = quantidade * (valorDaCompra + (valorDaCompra * porcentagemLucro));
+        return valorDaVenda;
+    }
+
+
     public void efetuarVenda(Integer id, Integer quantidadeDeVenda) {
         if (quantidadeTotalCalcado() >= 0) {
-            if (calcadoRepository.existsById(id)) {
-                Optional<Calcado> calcado = calcadoRepository.findById(id);
-                Integer qtdTotal = calcado.get().getQuantidadeDeEstoque();
-                if (quantidadeDeVenda <= qtdTotal) {
-                    Integer qtdAtualizada = qtdTotal - quantidadeDeVenda;
-                    calcado.get().setQuantidadeDeEstoque(qtdAtualizada);
-                    calcadoRepository.save(calcado.get());
-                }
-                else {
-                    throw new EstoqueInsuficienteException("A quantidade da venda deve ser menor do que o estoque");
-                }
-
+            Calcado calcado = buscarCalcadoPorId(id);
+            Integer qtdTotal = calcado.getQuantidadeDeEstoque();
+            if (quantidadeDeVenda <= qtdTotal) {
+                Integer qtdAtualizada = qtdTotal - quantidadeDeVenda;
+                calcado.setQuantidadeDeEstoque(qtdAtualizada);
+                calcadoRepository.save(calcado);
             } else {
-                throw new IdNaoEncontradoException("Id não encontrado");
+                throw new RuntimeException("A quantidade da venda deve ser menor do que o estoque");
             }
         }
     }
