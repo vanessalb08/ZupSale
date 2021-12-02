@@ -3,6 +3,7 @@ package br.com.zup.zupsale.services;
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
+import br.com.zup.zupsale.exceptions.EstoqueInsuficienteException;
 import br.com.zup.zupsale.exceptions.IdNaoEncontradoException;
 import br.com.zup.zupsale.models.Calcado;
 import br.com.zup.zupsale.repositories.CalcadoRepository;
@@ -77,7 +78,7 @@ public class CalcadoService {
                     calcadoRepository.save(calcado.get());
                 }
                 else {
-                    throw new RuntimeException("A quantidade da venda deve ser menor do que o estoque");
+                    throw new EstoqueInsuficienteException("A quantidade da venda deve ser menor do que o estoque");
                 }
 
             } else {
