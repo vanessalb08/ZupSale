@@ -78,15 +78,6 @@ public class CalcadoService {
         return valorDaVenda;
     }
 
-
-    public double calcularValorVenda(int id, double porcentagemLucro, int quantidade) {
-        Calcado calcado = buscarCalcadoPorId(id);
-        double valorDaCompra = calcado.getValorDaCompra();
-        double valorDaVenda = quantidade * (valorDaCompra + (valorDaCompra * porcentagemLucro));
-        return valorDaVenda;
-    }
-
-
     public void efetuarVenda(Integer id, Integer quantidadeDeVenda) {
         if (quantidadeTotalCalcado() >= 0) {
             Calcado calcado = buscarCalcadoPorId(id);
