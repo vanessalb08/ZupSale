@@ -67,7 +67,7 @@ public class CalcadoService {
         if (calcado.isPresent()) {
             return calcado.get();
         } else {
-            throw new RuntimeException("Id não encontrado");
+            throw new IdNaoEncontradoException("Id não encontrado");
         }
 
     }
@@ -87,7 +87,7 @@ public class CalcadoService {
                 calcado.setQuantidadeDeEstoque(qtdAtualizada);
                 calcadoRepository.save(calcado);
             } else {
-                throw new RuntimeException("A quantidade da venda deve ser menor do que o estoque");
+                throw new EstoqueInsuficienteException("A quantidade da venda deve ser menor do que o estoque");
             }
         }
     }
