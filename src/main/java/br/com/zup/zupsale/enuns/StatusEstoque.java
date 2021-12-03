@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 public enum StatusEstoque {
     ABAIXO("Estoque está abaixo de 50%"),
-    ADEQUADO("Estoque está adequado");
+    ADEQUADO("Estoque está adequado"),
+    ZERADO("Estoque zerado");
 
     private String mensagem;
 }
