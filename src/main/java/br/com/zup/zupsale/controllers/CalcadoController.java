@@ -94,14 +94,16 @@ public class CalcadoController {
         for (Calcado calcado : calcadoService.listarCalcados()) {
             RelatorioDeVendasDTO relatorioDeVendas = modelMapper.map(
                     calcado, RelatorioDeVendasDTO.class);
-            if (calcadoService.atualizarPorcentagemDeVendas(calcado.getId()) <= 50){
+            if(calcadoService.atualizarPorcentagemDeVendas(calcado.getId()) == 100){
+                relatorioDeVendas.setStatusEstoque(StatusEstoque.ZERADO.getMensagem());
+            }
+            else if (calcadoService.atualizarPorcentagemDeVendas(calcado.getId()) <= 50){
                 relatorioDeVendas.setStatusEstoque(StatusEstoque.ADEQUADO.getMensagem());
             }
             else {
                 relatorioDeVendas.setStatusEstoque(StatusEstoque.ABAIXO.getMensagem());
             }
             relatorioDeVendasDTOS.add(relatorioDeVendas);
-
         }
         return relatorioDeVendasDTOS;
     }
