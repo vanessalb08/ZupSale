@@ -31,7 +31,6 @@ public class CalcadoController {
     private ModelMapper modelMapper;
 
     @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Realizar novo cadastro de calçado")
     public void cadastrarCalcado(@RequestBody @Valid CadastroDTO cadastroDTO) {
         Calcado calcado = modelMapper.map(cadastroDTO, Calcado.class);
