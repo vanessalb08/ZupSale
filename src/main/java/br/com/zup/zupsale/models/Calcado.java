@@ -29,7 +29,7 @@ public class Calcado {
     private LocalDateTime dataDeCadastro;
     private Integer qtdDeEntrada = 0;
     private Integer qtdDeSaida = 0;
-    private  Double porcentagemDeVendas;
+    private  Double porcentagemDeVendas = 0.0;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Estoque estoque;
 

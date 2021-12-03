@@ -1,7 +1,6 @@
 package br.com.zup.zupsale.repositories;
 
 import br.com.zup.zupsale.enuns.Categoria;
-import br.com.zup.zupsale.enuns.Genero;
 import br.com.zup.zupsale.models.Calcado;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -25,5 +24,5 @@ public interface CalcadoRepository extends CrudRepository<Calcado, Integer> {
 
     boolean existsByModeloIgnoreCase(String modelo);
 
-    Calcado[] findAllByModeloIgnoreCase(String modelo);
+    List<Calcado> findAllByModeloIgnoreCase(String modelo);
 }

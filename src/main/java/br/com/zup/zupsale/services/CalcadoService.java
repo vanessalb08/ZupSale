@@ -2,6 +2,7 @@ package br.com.zup.zupsale.services;
 
 import br.com.zup.zupsale.enuns.Categoria;
 import br.com.zup.zupsale.enuns.Genero;
+import br.com.zup.zupsale.exceptions.CadastroInvalidoException;
 import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
 import br.com.zup.zupsale.exceptions.EstoqueInsuficienteException;
 import br.com.zup.zupsale.exceptions.IdNaoEncontradoException;
@@ -37,7 +38,7 @@ public class CalcadoService {
             for (Calcado calcadoReferencia : calcadoRepository.findAllByModeloIgnoreCase(calcado.getModelo())) {
                 if (!Objects.equals(calcado.getCategoria(), calcadoReferencia.getCategoria()) ||
                         !Objects.equals(calcado.getMarca(), calcadoReferencia.getMarca())) {
-                    throw new RuntimeException("Tipo ou marca divergente");
+                    throw new CadastroInvalidoException("Tipo ou marca divergente");
                 }
             }
         }

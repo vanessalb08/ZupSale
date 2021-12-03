@@ -1,5 +1,6 @@
 package br.com.zup.zupsale.config;
 
+import br.com.zup.zupsale.exceptions.CadastroInvalidoException;
 import br.com.zup.zupsale.exceptions.CalcadoNaoLocalizadoException;
 import br.com.zup.zupsale.exceptions.EstoqueInsuficienteException;
 import br.com.zup.zupsale.exceptions.IdNaoEncontradoException;
@@ -53,6 +54,12 @@ public class ControllerAdvisor {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public MensagemDeErro ExcecaoDeEnumInvalido(HttpMessageNotReadableException exception) {
         return new MensagemDeErro("Opção inválida");
+    }
+
+    @ExceptionHandler(CadastroInvalidoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MensagemDeErro ExcecaoDeCadastroInvalido(CadastroInvalidoException exception) {
+        return new MensagemDeErro(exception.getMessage());
     }
 
 }
